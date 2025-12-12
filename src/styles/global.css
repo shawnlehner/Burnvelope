@@ -18,7 +18,7 @@
   --color-brand-primary-hover: #1e293b;
   --color-brand-accent: #3b82f6;
   --color-brand-accent-hover: #2563eb;
-  --color-brand-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --color-brand-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
 
   /* Accent Colors */
   --color-accent-success: #10b981;
@@ -101,9 +101,9 @@
   --z-toast: 300;
 }
 
-/* Dark Mode */
+/* Dark Mode - Browser Preference */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-bg-primary: #0a0a0a;
     --color-bg-secondary: #171717;
     --color-bg-tertiary: #262626;
@@ -128,6 +128,33 @@
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
   }
+}
+
+/* Dark Mode - Manual Override */
+:root[data-theme="dark"] {
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #171717;
+  --color-bg-tertiary: #262626;
+  --color-bg-card: #171717;
+
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-text-muted: #52525b;
+
+  --color-brand-primary: #fafafa;
+  --color-brand-primary-hover: #e4e4e7;
+  --color-brand-accent: #60a5fa;
+  --color-brand-accent-hover: #3b82f6;
+
+  --color-border: #262626;
+  --color-border-focus: #60a5fa;
+  --color-divider: #262626;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
 }
 
 /* ===== CSS Reset ===== */
@@ -230,7 +257,8 @@ code {
 }
 
 .card--elevated {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
 }
 
 /* ===== Button Components ===== */

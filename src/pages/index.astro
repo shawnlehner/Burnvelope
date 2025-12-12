@@ -50,22 +50,44 @@ import FAQ from '../components/FAQ.astro';
 
       <div class="use-cases-grid">
         <div class="use-case">
-          <span class="use-case-icon">🔐</span>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0110 0v4" />
+            </svg>
+          </div>
           <h3>Passwords</h3>
           <p>Share login credentials with team members or clients without leaving traces in chat or email.</p>
         </div>
         <div class="use-case">
-          <span class="use-case-icon">🔑</span>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+            </svg>
+          </div>
           <h3>API Keys</h3>
           <p>Onboard developers securely by sharing API keys, tokens, and secrets that self-destruct.</p>
         </div>
         <div class="use-case">
-          <span class="use-case-icon">💳</span>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+              <line x1="1" y1="10" x2="23" y2="10" />
+            </svg>
+          </div>
           <h3>Payment Info</h3>
           <p>Share credit card numbers or bank details securely when needed for one-time transactions.</p>
         </div>
         <div class="use-case">
-          <span class="use-case-icon">📝</span>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+          </div>
           <h3>Private Notes</h3>
           <p>Send confidential messages, codes, or sensitive information that shouldn't persist.</p>
         </div>
@@ -115,7 +137,10 @@ import FAQ from '../components/FAQ.astro';
   }
 
   .title-accent {
-    color: var(--color-brand-accent);
+    background: var(--color-brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .hero-subtitle {
@@ -172,9 +197,16 @@ import FAQ from '../components/FAQ.astro';
   }
 
   .use-case-icon {
-    display: block;
-    font-size: 2.5rem;
-    margin-bottom: var(--space-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .use-case-icon svg {
+    width: 32px;
+    height: 32px;
+    color: var(--color-text-muted);
   }
 
   .use-case h3 {
@@ -195,19 +227,28 @@ import FAQ from '../components/FAQ.astro';
   .cta-card {
     text-align: center;
     padding: var(--space-12);
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
+    background: var(--color-brand-gradient);
     border-radius: var(--radius-2xl);
   }
 
   .cta-card h2 {
     font-size: var(--font-size-2xl);
     margin-bottom: var(--space-3);
+    color: white;
   }
 
   .cta-card p {
-    color: var(--color-text-secondary);
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: var(--space-6);
+  }
+
+  .cta-card .btn--primary {
+    background: white;
+    color: var(--color-brand-accent);
+  }
+
+  .cta-card .btn--primary:hover {
+    background: rgba(255, 255, 255, 0.9);
   }
 
   /* Create Form Styles */
@@ -297,8 +338,9 @@ import FAQ from '../components/FAQ.astro';
   }
 
   :global(.create-form .security-note svg) {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
+    margin-right: var(--space-1);
     color: var(--color-accent-success);
     flex-shrink: 0;
   }

@@ -58,6 +58,16 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     />
 
     <title>{fullTitle}</title>
+
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored) {
+          document.documentElement.setAttribute('data-theme', stored);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="site-wrapper">

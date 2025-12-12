@@ -571,8 +571,7 @@ import Layout from '../components/Layout.astro';
   .about-cta {
     text-align: center;
     padding: var(--space-12);
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border);
+    background: var(--color-brand-gradient);
     border-radius: var(--radius-2xl);
   }
 
@@ -581,11 +580,21 @@ import Layout from '../components/Layout.astro';
     margin-bottom: var(--space-3);
     border: none;
     padding: 0;
+    color: white;
   }
 
   .about-cta p {
-    color: var(--color-text-secondary);
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: var(--space-6);
+  }
+
+  .about-cta .btn--primary {
+    background: white;
+    color: var(--color-brand-accent);
+  }
+
+  .about-cta .btn--primary:hover {
+    background: rgba(255, 255, 255, 0.9);
   }
 
   /* Button Styles */
