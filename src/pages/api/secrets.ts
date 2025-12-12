@@ -31,9 +31,22 @@ const MAX_PAYLOAD_SIZE = 100 * 1024;
 export async function POST(context: APIContext): Promise<Response> {
   const { request, locals } = context;
 
-  // Access Cloudflare runtime - try both possible locations
+  // Debug: log the structure of locals to find where bindings are
+  const localsKeys = Object.keys(locals || {});
+  const localsStructure = JSON.stringify(locals, (key, value) => {
+    if (typeof value === 'function') return '[Function]';
+    if (typeof value === 'object' && value !== null && value.constructor?.name === 'KvNamespace') return '[KVNamespace]';
+    return value;
+  }, 2);
+  console.log('Locals keys:', localsKeys);
+  console.log('Locals structure:', localsStructure);
+
+  // Access Cloudflare runtime - try multiple possible locations
   const runtime = (locals as any).runtime ?? locals;
-  const env = runtime?.env ?? runtime;
+  const env = runtime?.env ?? runtime?.cf?.env ?? (locals as any).cf?.env ?? runtime;
+
+  console.log('Runtime:', typeof runtime, Object.keys(runtime || {}));
+  console.log('Env:', typeof env, Object.keys(env || {}));
 
   // CORS headers
   const corsHeaders = {
@@ -45,9 +58,9 @@ export async function POST(context: APIContext): Promise<Response> {
   try {
     // Validate environment bindings
     if (!env?.SECRETS) {
-      console.error('KV namespace SECRETS not bound');
+      console.error('KV namespace SECRETS not bound. Env keys:', Object.keys(env || {}));
       return jsonResponse<ErrorResponse>(
-        { error: 'Server configuration error: KV not bound' },
+        { error: `Server configuration error: KV not bound. Debug: locals keys=[${localsKeys.join(',')}]` },
         500,
         corsHeaders
       );
