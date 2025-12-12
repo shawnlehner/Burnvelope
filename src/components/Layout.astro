@@ -18,7 +18,45 @@ const {
 } = Astro.props;
 
 const siteName = 'Burnvelope';
+const siteUrl = 'https://burnvelope.com';
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+
+// Structured Data Schemas
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteName,
+  url: siteUrl,
+  logo: `${siteUrl}/og-image.png`,
+  description: 'Secure one-time secret sharing with end-to-end encryption',
+  sameAs: ['https://github.com/shawnlehner/burnvelope'],
+};
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: siteUrl,
+  description: 'Share passwords, API keys, and sensitive information securely. End-to-end encrypted, one-time view, then gone forever.',
+  publisher: {
+    '@type': 'Organization',
+    name: siteName,
+  },
+};
+
+const softwareAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: siteName,
+  applicationCategory: 'SecurityApplication',
+  operatingSystem: 'Web',
+  description: 'Secure one-time secret sharing with end-to-end encryption. Share passwords, API keys, and sensitive information that self-destructs after viewing.',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
 ---
 
 <!DOCTYPE html>
@@ -30,6 +68,8 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
@@ -40,6 +80,9 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:site_name" content={siteName} />
 
     <!-- Twitter -->
@@ -58,6 +101,11 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     />
 
     <title>{fullTitle}</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} />
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>

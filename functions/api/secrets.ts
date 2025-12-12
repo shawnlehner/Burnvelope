@@ -3,7 +3,10 @@
  * Creates a new encrypted secret
  */
 
-import { nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
+
+// Custom ID generator using only alphanumeric characters (no - or _)
+const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 8);
 
 interface Env {
   SECRETS: KVNamespace;
@@ -74,7 +77,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     expiresIn = Math.max(MIN_EXPIRATION, Math.min(MAX_EXPIRATION, expiresIn));
 
     // Generate unique ID
-    const id = nanoid(8);
+    const id = nanoid();
 
     // Server-side encryption
     const serverEncrypted = await serverEncrypt(body.encryptedData, env.ENCRYPTION_KEY);

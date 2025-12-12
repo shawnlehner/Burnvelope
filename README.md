@@ -26,7 +26,7 @@ Burnvelope takes a different approach. Instead of trying to secure persistent me
 
 ## Features
 
-- **End-to-End Encryption** — Secrets are encrypted in your browser before leaving your device using AES-256-GCM
+- **End-to-End Encryption** — Secrets are encrypted in your browser before leaving your device using AES-128-GCM
 - **Zero-Knowledge Architecture** — The encryption key never touches our servers; it stays in the URL hash
 - **One-Time Access** — Secrets are immediately and permanently deleted after viewing
 - **Automatic Expiration** — Unviewed secrets expire after 1 hour to 7 days
@@ -46,9 +46,9 @@ Burnvelope uses a two-layer encryption model:
 ┌─────────────────────────────────────────────────────────────────┐
 │                        YOUR BROWSER                             │
 │  ┌─────────────┐    ┌──────────────────┐    ┌───────────────┐  │
-│  │   Secret    │ -> │ AES-256-GCM      │ -> │  Ciphertext   │  │
+│  │   Secret    │ -> │ AES-128-GCM      │ -> │  Ciphertext   │  │
 │  │  (plaintext)│    │ Encryption       │    │  + Key in URL │  │
-│  └─────────────┘    │ (client key)     │    └───────────────┘  │
+│  └─────────────┘    │ (128-bit key)    │    └───────────────┘  │
 │                     └──────────────────┘                        │
 └─────────────────────────────────────────────────────────────────┘
                               │
@@ -62,6 +62,8 @@ Burnvelope uses a two-layer encryption model:
 │                     └──────────────────┘    └───────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+**Why AES-128 for client-side encryption?** We use 128-bit keys for the client layer to keep URLs short and easy to share. AES-128 is still highly secure with no known practical attacks. The server adds a second layer of AES-256 encryption for defense in depth.
 
 ### The URL Hash Trick
 
@@ -95,7 +97,7 @@ By design, browsers **never send the hash fragment to the server**. This is a fu
 - **Runtime**: [Cloudflare Workers](https://workers.cloudflare.com/)
 - **Storage**: [Cloudflare KV](https://developers.cloudflare.com/kv/) with native TTL expiration
 - **UI Components**: [React](https://react.dev/) 19 for interactive forms
-- **Encryption**: Web Crypto API (AES-256-GCM, HKDF)
+- **Encryption**: Web Crypto API (AES-128-GCM client, AES-256-GCM server, HKDF)
 - **Language**: TypeScript
 
 ---

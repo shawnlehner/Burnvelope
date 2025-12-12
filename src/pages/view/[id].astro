@@ -8,11 +8,32 @@ const { id } = Astro.params;
 if (!id || id.length < 6 || id.length > 12) {
   return Astro.redirect('/');
 }
+
+// Breadcrumb schema for SEO
+const siteUrl = 'https://burnvelope.com';
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${siteUrl}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'View Secret',
+      item: `${siteUrl}/view/${id}`,
+    },
+  ],
+};
 ---
 
 <Layout
-  title="View Secret"
-  description="You've received a secure, encrypted secret. This link can only be used once."
+  title="View Your Encrypted Secret"
+  description="You've received a secure, encrypted secret via Burnvelope. This link can only be viewed once before it's permanently deleted. View it now to reveal the contents."
 >
   <section class="view-page">
     <div class="container container--narrow">
@@ -21,6 +42,9 @@ if (!id || id.length < 6 || id.length > 12) {
       </div>
     </div>
   </section>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 </Layout>
 
 <style>

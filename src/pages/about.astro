@@ -61,9 +61,10 @@ import Layout from '../components/Layout.astro';
             <div class="step-content">
               <h3>Client-Side Encryption</h3>
               <p>
-                When you enter a secret, your browser generates a random 256-bit encryption key
-                and encrypts your secret using AES-256-GCM—the same encryption standard used by
-                governments and banks worldwide.
+                When you enter a secret, your browser generates a random 128-bit encryption key
+                and encrypts your secret using AES-128-GCM. We use 128-bit keys for client encryption
+                to keep URLs short and easy to share—while still providing robust security with no known
+                practical attacks.
               </p>
               <p>
                 <strong>This happens entirely in your browser</strong>. The plaintext never leaves your device.
@@ -152,10 +153,11 @@ import Layout from '../components/Layout.astro';
               </svg>
             </div>
             <div>
-              <h3>AES-256-GCM Encryption</h3>
+              <h3>Double-Layer AES-GCM Encryption</h3>
               <p>
-                We use authenticated encryption that provides both confidentiality and integrity.
-                Any tampering with the ciphertext will be detected during decryption.
+                Your secret is encrypted twice: first in your browser (AES-128), then on our servers (AES-256).
+                Both layers use authenticated encryption that detects any tampering.
+                Even if one layer is compromised, the other protects your data.
               </p>
             </div>
           </div>

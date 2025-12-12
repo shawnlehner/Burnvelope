@@ -1,0 +1,9 @@
+# Burnvelope Robots.txt
+# https://burnvelope.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://burnvelope.com/sitemap-index.xml

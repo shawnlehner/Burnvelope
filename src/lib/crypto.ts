@@ -1,12 +1,18 @@
 /**
  * Burnvelope Client-Side Encryption Utilities
  *
- * Uses Web Crypto API for AES-256-GCM encryption.
+ * Uses Web Crypto API for AES-128-GCM encryption.
  * All encryption happens in the browser before data is sent to the server.
+ *
+ * Why AES-128 for client-side encryption:
+ * - Produces shorter URLs for easier sharing (22 vs 43 character keys)
+ * - Still provides strong 128-bit security with no known practical attacks
+ * - Secrets are ephemeral (deleted after viewing or expiry)
+ * - Server adds a second layer of AES-256 encryption for defense in depth
  */
 
 const ALGORITHM = 'AES-GCM';
-const KEY_LENGTH = 256;
+const KEY_LENGTH = 128;
 const IV_LENGTH = 12; // 96 bits for GCM
 const TAG_LENGTH = 128; // 128 bits for auth tag
 
@@ -29,7 +35,7 @@ export async function generateKey(): Promise<string> {
 }
 
 /**
- * Encrypt plaintext using AES-256-GCM
+ * Encrypt plaintext using AES-128-GCM
  * @param plaintext - The text to encrypt
  * @param keyBase64url - Base64url-encoded encryption key
  * @returns Base64-encoded ciphertext (IV + ciphertext)
@@ -62,7 +68,7 @@ export async function encrypt(
 }
 
 /**
- * Decrypt ciphertext using AES-256-GCM
+ * Decrypt ciphertext using AES-128-GCM
  * @param ciphertextBase64 - Base64-encoded ciphertext (IV + ciphertext)
  * @param keyBase64url - Base64url-encoded encryption key
  * @returns Decrypted plaintext
@@ -162,8 +168,8 @@ function base64urlToArrayBuffer(base64url: string): ArrayBuffer {
 export function isValidKey(key: string): boolean {
   try {
     const buffer = base64urlToArrayBuffer(key);
-    // AES-256 key should be 32 bytes
-    return buffer.byteLength === 32;
+    // AES-128 key should be 16 bytes
+    return buffer.byteLength === 16;
   } catch {
     return false;
   }

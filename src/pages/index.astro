@@ -11,7 +11,7 @@ import FAQ from '../components/FAQ.astro';
   description="Share passwords, API keys, and sensitive information securely. End-to-end encrypted, one-time view, then gone forever. Free and open source."
 >
   <!-- Hero Section -->
-  <section class="hero">
+  <section id="create" class="hero">
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
@@ -104,7 +104,7 @@ import FAQ from '../components/FAQ.astro';
       <div class="cta-card">
         <h2>Ready to Share Securely?</h2>
         <p>Start sharing secrets that burn after reading. No signup required.</p>
-        <a href="#" class="btn btn--primary btn--lg" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+        <a href="#create" class="btn btn--primary btn--lg">
           Create a Secret Link
         </a>
       </div>
@@ -116,6 +116,7 @@ import FAQ from '../components/FAQ.astro';
   /* Hero Section */
   .hero {
     padding: var(--space-12) 0 var(--space-20);
+    scroll-margin-top: 80px;
   }
 
   .hero-content {

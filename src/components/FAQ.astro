@@ -2,11 +2,13 @@
 const faqs = [
   {
     question: 'Is Burnvelope really secure?',
-    answer: 'Yes. Burnvelope uses AES-256-GCM encryption, the same standard used by governments and banks. Your secret is encrypted in your browser before being sent to our servers. The encryption key is embedded in the URL hash, which is never sent to our servers. Even if our database was compromised, attackers would only see encrypted data they cannot decrypt.',
+    answer: 'Yes. Burnvelope uses double-layer AES-GCM encryption. Your secret is first encrypted in your browser (AES-128), then encrypted again on our servers (AES-256). The client encryption key is embedded in the URL hash, which is never sent to our servers. Even if our database was compromised, attackers would only see double-encrypted data they cannot decrypt. <a href="/about">Learn more about our security model</a>.',
+    schemaAnswer: 'Yes. Burnvelope uses double-layer AES-GCM encryption. Your secret is first encrypted in your browser (AES-128), then encrypted again on our servers (AES-256). The client encryption key is embedded in the URL hash, which is never sent to our servers. Even if our database was compromised, attackers would only see double-encrypted data they cannot decrypt.',
   },
   {
     question: 'Can you read my secrets?',
-    answer: 'No. We designed Burnvelope with a zero-knowledge architecture. Your secret is encrypted with a key that never touches our servers—it stays in the URL. We only store double-encrypted data that is useless without the key in your link. We literally cannot read your secrets.',
+    answer: 'No. We designed Burnvelope with a <a href="/about">zero-knowledge architecture</a>. Your secret is encrypted with a key that never touches our servers—it stays in the URL. We only store double-encrypted data that is useless without the key in your link. We literally cannot read your secrets.',
+    schemaAnswer: 'No. We designed Burnvelope with a zero-knowledge architecture. Your secret is encrypted with a key that never touches our servers—it stays in the URL. We only store double-encrypted data that is useless without the key in your link. We literally cannot read your secrets.',
   },
   {
     question: 'What happens after someone views my secret?',
@@ -22,7 +24,8 @@ const faqs = [
   },
   {
     question: 'Is Burnvelope free to use?',
-    answer: 'Yes, Burnvelope is completely free and open source. There are no premium tiers, no limits, and no accounts required. We believe secure secret sharing should be accessible to everyone.',
+    answer: 'Yes, Burnvelope is completely free and <a href="https://github.com/shawnlehner/burnvelope" target="_blank" rel="noopener noreferrer">open source</a>. There are no premium tiers, no limits, and no accounts required. We believe secure secret sharing should be accessible to everyone.',
+    schemaAnswer: 'Yes, Burnvelope is completely free and open source. There are no premium tiers, no limits, and no accounts required. We believe secure secret sharing should be accessible to everyone.',
   },
   {
     question: 'What should I use Burnvelope for?',
@@ -30,7 +33,7 @@ const faqs = [
   },
 ];
 
-// Generate JSON-LD schema for FAQ
+// Generate JSON-LD schema for FAQ (use schemaAnswer for plain text, fallback to answer)
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -39,7 +42,7 @@ const faqSchema = {
     name: faq.question,
     acceptedAnswer: {
       '@type': 'Answer',
-      text: faq.answer,
+      text: faq.schemaAnswer || faq.answer,
     },
   })),
 };
@@ -62,7 +65,7 @@ const faqSchema = {
             </svg>
           </summary>
           <div class="faq-answer">
-            <p>{faq.answer}</p>
+            <p set:html={faq.answer} />
           </div>
         </details>
       ))}
@@ -164,6 +167,16 @@ const faqSchema = {
     font-size: var(--font-size-base);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
+  }
+
+  .faq-answer a {
+    color: var(--color-brand-accent);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .faq-answer a:hover {
+    text-decoration: underline;
   }
 
   @media (max-width: 768px) {
