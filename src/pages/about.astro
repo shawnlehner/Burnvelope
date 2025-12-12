@@ -7,7 +7,7 @@ import Layout from '../components/Layout.astro';
   description="Learn how Burnvelope uses end-to-end encryption and zero-knowledge architecture to keep your secrets safe. Open source and privacy-focused."
 >
   <article class="about-page">
-    <div class="container container--narrow">
+    <div class="container">
       <!-- Hero -->
       <header class="about-hero">
         <h1>About Burnvelope</h1>
@@ -201,7 +201,11 @@ import Layout from '../components/Layout.astro';
 
         <div class="lifecycle">
           <div class="lifecycle-item">
-            <div class="lifecycle-icon created"></div>
+            <div class="lifecycle-icon created">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </div>
             <div class="lifecycle-content">
               <h4>Created</h4>
               <p>Double-encrypted secret stored in Cloudflare KV with TTL</p>
@@ -209,7 +213,12 @@ import Layout from '../components/Layout.astro';
           </div>
           <div class="lifecycle-arrow">→</div>
           <div class="lifecycle-item">
-            <div class="lifecycle-icon waiting"></div>
+            <div class="lifecycle-icon waiting">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
             <div class="lifecycle-content">
               <h4>Waiting</h4>
               <p>Secret exists until viewed or TTL expires</p>
@@ -217,7 +226,11 @@ import Layout from '../components/Layout.astro';
           </div>
           <div class="lifecycle-arrow">→</div>
           <div class="lifecycle-item">
-            <div class="lifecycle-icon deleted"></div>
+            <div class="lifecycle-icon deleted">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
             <div class="lifecycle-content">
               <h4>Deleted</h4>
               <p>Immediately and permanently removed—no traces</p>
@@ -320,12 +333,15 @@ import Layout from '../components/Layout.astro';
   .about-hero .lead {
     font-size: var(--font-size-xl);
     color: var(--color-text-secondary);
-    max-width: 600px;
+    max-width: 720px;
     margin: 0 auto;
   }
 
   .about-section {
     margin-bottom: var(--space-16);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .about-section h2 {
@@ -338,6 +354,7 @@ import Layout from '../components/Layout.astro';
   .about-section p {
     margin-bottom: var(--space-4);
     line-height: var(--line-height-relaxed);
+    max-width: 720px;
   }
 
   .about-section p:last-child {
@@ -422,14 +439,14 @@ import Layout from '../components/Layout.astro';
     justify-content: center;
     width: 48px;
     height: 48px;
-    background: rgba(59, 130, 246, 0.1);
+    background: var(--color-bg-tertiary);
     border-radius: var(--radius-lg);
   }
 
   .security-icon svg {
     width: 24px;
     height: 24px;
-    color: var(--color-brand-accent);
+    color: var(--color-text-secondary);
   }
 
   .security-point h3 {
@@ -464,6 +481,9 @@ import Layout from '../components/Layout.astro';
   }
 
   .lifecycle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -485,6 +505,23 @@ import Layout from '../components/Layout.astro';
     border: 2px solid var(--color-accent-success);
   }
 
+  .lifecycle-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .lifecycle-icon.created svg {
+    color: var(--color-accent-info);
+  }
+
+  .lifecycle-icon.waiting svg {
+    color: var(--color-accent-warning);
+  }
+
+  .lifecycle-icon.deleted svg {
+    color: var(--color-accent-success);
+  }
+
   .lifecycle-content h4 {
     font-size: var(--font-size-base);
     margin-bottom: var(--space-1);
@@ -492,7 +529,7 @@ import Layout from '../components/Layout.astro';
 
   .lifecycle-content p {
     font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     margin: 0;
   }
 
@@ -560,7 +597,7 @@ import Layout from '../components/Layout.astro';
     display: inline-block;
     margin-top: var(--space-4);
     font-weight: var(--font-weight-medium);
-    color: var(--color-brand-accent);
+    color: var(--color-text-primary);
   }
 
   .creator-link:hover {
@@ -571,7 +608,7 @@ import Layout from '../components/Layout.astro';
   .about-cta {
     text-align: center;
     padding: var(--space-12);
-    background: var(--color-brand-gradient);
+    background: #0f172a;
     border-radius: var(--radius-2xl);
   }
 
@@ -580,21 +617,21 @@ import Layout from '../components/Layout.astro';
     margin-bottom: var(--space-3);
     border: none;
     padding: 0;
-    color: white;
+    color: #fafafa;
   }
 
   .about-cta p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: var(--space-6);
   }
 
   .about-cta .btn--primary {
-    background: white;
-    color: var(--color-brand-accent);
+    background: #fafafa;
+    color: #0f172a;
   }
 
   .about-cta .btn--primary:hover {
-    background: rgba(255, 255, 255, 0.9);
+    background: #e2e8f0;
   }
 
   /* Button Styles */
@@ -615,13 +652,13 @@ import Layout from '../components/Layout.astro';
   }
 
   .btn--primary {
-    color: white;
-    background: var(--color-brand-gradient);
-    box-shadow: var(--shadow-md);
+    color: var(--color-brand-primary-text);
+    background: var(--color-brand-primary);
+    box-shadow: var(--shadow-sm);
   }
 
   .btn--primary:hover {
-    filter: brightness(1.1);
+    background: var(--color-brand-primary-hover);
     box-shadow: var(--shadow-md);
   }
 
@@ -633,7 +670,7 @@ import Layout from '../components/Layout.astro';
 
   .btn--secondary:hover {
     background: var(--color-bg-tertiary);
-    border-color: var(--color-brand-accent);
+    border-color: var(--color-border-focus);
   }
 
   .btn--lg {

@@ -100,7 +100,7 @@ import FAQ from '../components/FAQ.astro';
 
   <!-- CTA Section -->
   <section class="cta-section">
-    <div class="container container--narrow">
+    <div class="container">
       <div class="cta-card">
         <h2>Ready to Share Securely?</h2>
         <p>Start sharing secrets that burn after reading. No signup required.</p>
@@ -127,7 +127,7 @@ import FAQ from '../components/FAQ.astro';
 
   .hero-text {
     text-align: center;
-    max-width: 720px;
+    max-width: 800px;
   }
 
   .hero-title {
@@ -137,23 +137,45 @@ import FAQ from '../components/FAQ.astro';
   }
 
   .title-accent {
-    background: var(--color-brand-gradient);
+    display: block;
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(
+      90deg,
+      #b45309 0%,
+      #d97706 20%,
+      #f59e0b 40%,
+      #fbbf24 50%,
+      #f59e0b 60%,
+      #d97706 80%,
+      #b45309 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    animation: ember-flow 4s ease-in-out infinite;
+  }
+
+  @keyframes ember-flow {
+    0%, 100% {
+      background-position: 0% center;
+    }
+    50% {
+      background-position: 100% center;
+    }
   }
 
   .hero-subtitle {
     font-size: var(--font-size-xl);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
-    max-width: 560px;
+    max-width: 640px;
     margin: 0 auto;
   }
 
   .hero-form {
     width: 100%;
-    max-width: 560px;
+    max-width: 680px;
   }
 
   /* Use Cases Section */
@@ -178,8 +200,14 @@ import FAQ from '../components/FAQ.astro';
 
   .use-cases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: var(--space-6);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 640px) {
+    .use-cases-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .use-case {
@@ -227,28 +255,28 @@ import FAQ from '../components/FAQ.astro';
   .cta-card {
     text-align: center;
     padding: var(--space-12);
-    background: var(--color-brand-gradient);
+    background: #0f172a;
     border-radius: var(--radius-2xl);
   }
 
   .cta-card h2 {
     font-size: var(--font-size-2xl);
     margin-bottom: var(--space-3);
-    color: white;
+    color: #fafafa;
   }
 
   .cta-card p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: var(--space-6);
   }
 
   .cta-card .btn--primary {
-    background: white;
-    color: var(--color-brand-accent);
+    background: #fafafa;
+    color: #0f172a;
   }
 
   .cta-card .btn--primary:hover {
-    background: rgba(255, 255, 255, 0.9);
+    background: #e2e8f0;
   }
 
   /* Create Form Styles */
@@ -279,17 +307,17 @@ import FAQ from '../components/FAQ.astro';
     font-family: var(--font-sans);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
-    color: white;
-    background: var(--color-brand-gradient);
+    color: var(--color-brand-primary-text);
+    background: var(--color-brand-primary);
     border: none;
     border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all var(--transition-normal);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
   }
 
   :global(.create-form .submit-btn:hover:not(:disabled)) {
-    filter: brightness(1.1);
+    background: var(--color-brand-primary-hover);
     box-shadow: var(--shadow-md);
   }
 
@@ -358,7 +386,7 @@ import FAQ from '../components/FAQ.astro';
     width: 64px;
     height: 64px;
     margin-bottom: var(--space-4);
-    background: rgba(16, 185, 129, 0.1);
+    background: rgba(5, 150, 105, 0.1);
     border-radius: 50%;
   }
 
@@ -440,7 +468,7 @@ import FAQ from '../components/FAQ.astro';
   }
 
   :global(.create-form-success .create-another-btn:hover) {
-    color: var(--color-brand-accent);
+    color: var(--color-text-primary);
   }
 
   @keyframes spin {
