@@ -1,5 +1,4 @@
 ---
-const currentYear = new Date().getFullYear();
 const creatorUrl = 'https://www.shawnlehner.com/';
 const githubUrl = 'https://github.com/shawnlehner/burnvelope';
 ---
@@ -28,10 +27,6 @@ const githubUrl = 'https://github.com/shawnlehner/burnvelope';
         <span class="footer-divider">|</span>
         <span class="privacy-note">We never see your data</span>
       </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p class="copyright">&copy; {currentYear} Burnvelope. All rights reserved.</p>
     </div>
   </div>
 </footer>
@@ -67,26 +62,20 @@ const githubUrl = 'https://github.com/shawnlehner/burnvelope';
   }
 
   .crafted-by a {
-    color: var(--color-brand-primary);
+    color: var(--color-brand-accent);
     font-weight: var(--font-weight-medium);
     text-decoration: none;
     transition: color var(--transition-fast);
   }
 
   .crafted-by a:hover {
-    color: var(--color-brand-primary-hover);
+    color: var(--color-brand-accent-hover);
   }
 
   .heart-icon {
     width: 18px;
     height: 18px;
     color: #ef4444;
-    animation: heartbeat 1.5s ease-in-out infinite;
-  }
-
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
   }
 
   .footer-links {
@@ -120,18 +109,6 @@ const githubUrl = 'https://github.com/shawnlehner/burnvelope';
   }
 
   .privacy-note {
-    color: var(--color-text-muted);
-  }
-
-  .footer-bottom {
-    margin-top: var(--space-6);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-divider);
-    text-align: center;
-  }
-
-  .copyright {
-    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
   }
 

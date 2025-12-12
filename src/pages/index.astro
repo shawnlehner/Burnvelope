@@ -17,7 +17,7 @@ import FAQ from '../components/FAQ.astro';
         <div class="hero-text">
           <h1 class="hero-title">
             Share Secrets That
-            <span class="gradient-text">Burn After Reading</span>
+            <span class="title-accent">Burn After Reading</span>
           </h1>
           <p class="hero-subtitle">
             Securely share passwords, API keys, and sensitive information with end-to-end encryption.
@@ -114,11 +114,8 @@ import FAQ from '../components/FAQ.astro';
     margin-bottom: var(--space-6);
   }
 
-  .gradient-text {
-    background: var(--color-brand-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .title-accent {
+    color: var(--color-brand-accent);
   }
 
   .hero-subtitle {
@@ -170,8 +167,7 @@ import FAQ from '../components/FAQ.astro';
   }
 
   .use-case:hover {
-    border-color: var(--color-brand-primary);
-    transform: translateY(-2px);
+    border-color: var(--color-brand-accent);
     box-shadow: var(--shadow-md);
   }
 
@@ -199,30 +195,19 @@ import FAQ from '../components/FAQ.astro';
   .cta-card {
     text-align: center;
     padding: var(--space-12);
-    background: var(--color-brand-gradient);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-2xl);
-    color: white;
   }
 
   .cta-card h2 {
-    color: white;
     font-size: var(--font-size-2xl);
     margin-bottom: var(--space-3);
   }
 
   .cta-card p {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-secondary);
     margin-bottom: var(--space-6);
-  }
-
-  .cta-card .btn--primary {
-    background: white;
-    color: var(--color-brand-primary);
-  }
-
-  .cta-card .btn--primary:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-2px);
   }
 
   /* Create Form Styles */
@@ -263,8 +248,8 @@ import FAQ from '../components/FAQ.astro';
   }
 
   :global(.create-form .submit-btn:hover:not(:disabled)) {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    filter: brightness(1.1);
+    box-shadow: var(--shadow-md);
   }
 
   :global(.create-form .submit-btn:disabled) {
@@ -379,7 +364,7 @@ import FAQ from '../components/FAQ.astro';
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: white;
-    background: var(--color-brand-primary);
+    background: var(--color-brand-accent);
     border: none;
     border-radius: var(--radius-lg);
     cursor: pointer;
@@ -388,7 +373,7 @@ import FAQ from '../components/FAQ.astro';
   }
 
   :global(.create-form-success .copy-btn:hover) {
-    background: var(--color-brand-primary-hover);
+    background: var(--color-brand-accent-hover);
   }
 
   :global(.create-form-success .copy-btn.copied) {
@@ -413,7 +398,7 @@ import FAQ from '../components/FAQ.astro';
   }
 
   :global(.create-form-success .create-another-btn:hover) {
-    color: var(--color-brand-primary);
+    color: var(--color-brand-accent);
   }
 
   @keyframes spin {

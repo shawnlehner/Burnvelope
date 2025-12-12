@@ -29,8 +29,11 @@ const DEFAULT_EXPIRATION = 86400; // 24 hours
 const MAX_PAYLOAD_SIZE = 100 * 1024;
 
 export async function POST(context: APIContext): Promise<Response> {
-  const { request } = context;
-  const env = (context.locals as any).runtime?.env;
+  const { request, locals } = context;
+
+  // Access Cloudflare runtime - try both possible locations
+  const runtime = (locals as any).runtime ?? locals;
+  const env = runtime?.env ?? runtime;
 
   // CORS headers
   const corsHeaders = {
@@ -40,6 +43,25 @@ export async function POST(context: APIContext): Promise<Response> {
   };
 
   try {
+    // Validate environment bindings
+    if (!env?.SECRETS) {
+      console.error('KV namespace SECRETS not bound');
+      return jsonResponse<ErrorResponse>(
+        { error: 'Server configuration error: KV not bound' },
+        500,
+        corsHeaders
+      );
+    }
+
+    if (!env?.ENCRYPTION_KEY) {
+      console.error('ENCRYPTION_KEY not set');
+      return jsonResponse<ErrorResponse>(
+        { error: 'Server configuration error: encryption key not set' },
+        500,
+        corsHeaders
+      );
+    }
+
     // Parse request body
     const body: CreateSecretRequest = await request.json();
 

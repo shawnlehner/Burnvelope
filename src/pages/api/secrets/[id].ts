@@ -19,9 +19,12 @@ interface ErrorResponse {
 }
 
 export async function GET(context: APIContext): Promise<Response> {
-  const { params } = context;
-  const env = (context.locals as any).runtime?.env;
+  const { params, locals } = context;
   const id = params.id as string;
+
+  // Access Cloudflare runtime - try both possible locations
+  const runtime = (locals as any).runtime ?? locals;
+  const env = runtime?.env ?? runtime;
 
   // CORS headers
   const corsHeaders = {
@@ -31,6 +34,25 @@ export async function GET(context: APIContext): Promise<Response> {
   };
 
   try {
+    // Validate environment bindings
+    if (!env?.SECRETS) {
+      console.error('KV namespace SECRETS not bound');
+      return jsonResponse<ErrorResponse>(
+        { error: 'Server configuration error: KV not bound' },
+        500,
+        corsHeaders
+      );
+    }
+
+    if (!env?.ENCRYPTION_KEY) {
+      console.error('ENCRYPTION_KEY not set');
+      return jsonResponse<ErrorResponse>(
+        { error: 'Server configuration error: encryption key not set' },
+        500,
+        corsHeaders
+      );
+    }
+
     // Validate ID format
     if (!id || id.length < 6 || id.length > 12) {
       return jsonResponse<ErrorResponse>(

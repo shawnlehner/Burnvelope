@@ -36,13 +36,11 @@ if (!id || id.length < 6 || id.length > 12) {
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-2xl);
     padding: var(--space-8);
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-md);
   }
 
   /* View Secret Component Styles */
@@ -69,7 +67,7 @@ if (!id || id.length < 6 || id.length > 12) {
     height: 48px;
     margin: 0 auto var(--space-4);
     border: 3px solid var(--color-border);
-    border-top-color: var(--color-brand-primary);
+    border-top-color: var(--color-brand-accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
@@ -82,7 +80,7 @@ if (!id || id.length < 6 || id.length > 12) {
     width: 72px;
     height: 72px;
     margin-bottom: var(--space-4);
-    background: var(--color-brand-gradient);
+    background: var(--color-brand-accent);
     border-radius: 50%;
   }
 
@@ -142,8 +140,8 @@ if (!id || id.length < 6 || id.length > 12) {
   }
 
   :global(.view-secret--ready .reveal-btn:hover:not(:disabled)) {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    filter: brightness(1.1);
+    box-shadow: var(--shadow-lg);
   }
 
   :global(.view-secret--ready .reveal-btn:disabled) {
@@ -259,7 +257,7 @@ if (!id || id.length < 6 || id.length > 12) {
 
   :global(.view-secret--revealed .copy-secret-btn:hover) {
     color: var(--color-text-primary);
-    border-color: var(--color-brand-primary);
+    border-color: var(--color-brand-accent);
   }
 
   :global(.view-secret--revealed .copy-secret-btn.copied) {
@@ -293,7 +291,7 @@ if (!id || id.length < 6 || id.length > 12) {
 
   :global(.view-secret--revealed .create-new-link) {
     font-size: var(--font-size-sm);
-    color: var(--color-brand-primary);
+    color: var(--color-brand-accent);
     text-decoration: none;
   }
 
@@ -351,8 +349,8 @@ if (!id || id.length < 6 || id.length > 12) {
   }
 
   :global(.view-secret .btn--primary:hover) {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
+    filter: brightness(1.1);
+    box-shadow: var(--shadow-md);
   }
 
   @keyframes spin {
