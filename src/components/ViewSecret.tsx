@@ -180,8 +180,8 @@ export default function ViewSecret({ secretId }: ViewSecretProps) {
         <div className="revealed-header">
           <div className="revealed-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-              <circle cx="12" cy="12" r="3" />
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 019.9-1" />
             </svg>
           </div>
           <h2>Secret Revealed</h2>
