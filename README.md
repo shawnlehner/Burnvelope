@@ -70,7 +70,7 @@ Burnvelope uses a two-layer encryption model:
 The client-side encryption key is placed in the URL hash (the part after `#`):
 
 ```
-https://burnvelope.com/view/abc123#YourSecretKeyHere
+https://burnvelope.com/abc123#YourSecretKeyHere
                                   └── never sent to server
 ```
 

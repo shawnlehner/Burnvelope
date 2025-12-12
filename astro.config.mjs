@@ -12,9 +12,7 @@ export default defineConfig({
   }),
   integrations: [
     react(),
-    sitemap({
-      filter: (page) => !page.includes('/view/'),
-    }),
+    sitemap(),
   ],
   site: 'https://burnvelope.com',
 });
