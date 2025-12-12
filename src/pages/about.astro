@@ -1,0 +1,676 @@
+---
+import Layout from '../components/Layout.astro';
+---
+
+<Layout
+  title="About Burnvelope"
+  description="Learn how Burnvelope uses end-to-end encryption and zero-knowledge architecture to keep your secrets safe. Open source and privacy-focused."
+>
+  <article class="about-page">
+    <div class="container container--narrow">
+      <!-- Hero -->
+      <header class="about-hero">
+        <h1>About Burnvelope</h1>
+        <p class="lead">
+          A secure, open-source way to share sensitive information. Built with privacy as the foundation,
+          not an afterthought.
+        </p>
+      </header>
+
+      <!-- The Problem -->
+      <section class="about-section">
+        <h2>The Problem</h2>
+        <p>
+          We've all been there. You need to share a password, an API key, or some sensitive information
+          with a colleague or friend. What do you do? Email it? Send it over Slack or Discord?
+          Text it?
+        </p>
+        <p>
+          All of these options have the same fundamental problem: <strong>the message persists</strong>.
+          It sits in inboxes, chat logs, and text histories indefinitely. It gets backed up, synced,
+          and potentially exposed in data breaches.
+        </p>
+        <p>
+          Even "encrypted" messaging apps often store message history on their servers.
+          And let's be honest—we've all scrolled through old conversations looking for
+          that password someone sent us months ago.
+        </p>
+      </section>
+
+      <!-- The Solution -->
+      <section class="about-section">
+        <h2>The Solution</h2>
+        <p>
+          Burnvelope takes a fundamentally different approach. Instead of trying to secure persistent messages,
+          we eliminate persistence entirely. Your secret exists only until it's viewed—then it's gone forever.
+        </p>
+        <p>
+          But more importantly, <strong>we designed Burnvelope so that we can never see your secrets</strong>.
+          Even if our servers were compromised, even if we were compelled by law enforcement,
+          we literally cannot access the plaintext of your sensitive information.
+        </p>
+      </section>
+
+      <!-- How It Works -->
+      <section class="about-section">
+        <h2>How It Works</h2>
+
+        <div class="tech-flow">
+          <div class="flow-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Client-Side Encryption</h3>
+              <p>
+                When you enter a secret, your browser generates a random 256-bit encryption key
+                and encrypts your secret using AES-256-GCM—the same encryption standard used by
+                governments and banks worldwide.
+              </p>
+              <p>
+                <strong>This happens entirely in your browser</strong>. The plaintext never leaves your device.
+              </p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Server-Side Double Encryption</h3>
+              <p>
+                The already-encrypted data is sent to our server, where we encrypt it again with
+                our own key using HKDF key derivation and AES-256-GCM with a unique salt per secret.
+              </p>
+              <p>
+                This double encryption means that even if either key is somehow compromised,
+                your data remains protected by the other layer.
+              </p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>The Magic of the URL Hash</h3>
+              <p>
+                Here's the clever part: the client-side encryption key is placed in the
+                <strong>URL hash</strong> (the part after the #). For example:
+              </p>
+              <code class="url-example">
+                https://burnvelope.com/view/abc123<strong>#YourSecretKey</strong>
+              </code>
+              <p>
+                By design, browsers <strong>never send the hash fragment to the server</strong>.
+                This is a fundamental part of how URLs work. The key travels with the link but
+                never touches our servers.
+              </p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Retrieval & Destruction</h3>
+              <p>
+                When someone opens your link, they retrieve the double-encrypted data from our server.
+                At that moment, we immediately and permanently delete it—no backups, no logs.
+              </p>
+              <p>
+                Their browser then decrypts the server layer (using data in the response) and
+                the client layer (using the key from the URL hash) to reveal the original secret.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Security Model -->
+      <section class="about-section">
+        <h2>Security Model</h2>
+
+        <div class="security-points">
+          <div class="security-point">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <div>
+              <h3>Zero-Knowledge Architecture</h3>
+              <p>
+                We cannot read your secrets. The encryption key never touches our servers.
+                We only ever see encrypted ciphertext that is meaningless without the key
+                embedded in your link.
+              </p>
+            </div>
+          </div>
+
+          <div class="security-point">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0110 0v4" />
+              </svg>
+            </div>
+            <div>
+              <h3>AES-256-GCM Encryption</h3>
+              <p>
+                We use authenticated encryption that provides both confidentiality and integrity.
+                Any tampering with the ciphertext will be detected during decryption.
+              </p>
+            </div>
+          </div>
+
+          <div class="security-point">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" />
+              </svg>
+            </div>
+            <div>
+              <h3>Immediate Deletion</h3>
+              <p>
+                Secrets are deleted from our database the instant they're retrieved. There's no
+                grace period, no soft delete, no way to recover. When it's gone, it's gone.
+              </p>
+            </div>
+          </div>
+
+          <div class="security-point">
+            <div class="security-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <div>
+              <h3>Automatic Expiration</h3>
+              <p>
+                Unviewed secrets automatically expire after your chosen time limit (up to 7 days).
+                We use Cloudflare KV's TTL feature, so expiration happens at the storage level—not
+                via a cleanup job that might miss something.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Lifecycle -->
+      <section class="about-section">
+        <h2>Data Lifecycle</h2>
+
+        <div class="lifecycle">
+          <div class="lifecycle-item">
+            <div class="lifecycle-icon created"></div>
+            <div class="lifecycle-content">
+              <h4>Created</h4>
+              <p>Double-encrypted secret stored in Cloudflare KV with TTL</p>
+            </div>
+          </div>
+          <div class="lifecycle-arrow">→</div>
+          <div class="lifecycle-item">
+            <div class="lifecycle-icon waiting"></div>
+            <div class="lifecycle-content">
+              <h4>Waiting</h4>
+              <p>Secret exists until viewed or TTL expires</p>
+            </div>
+          </div>
+          <div class="lifecycle-arrow">→</div>
+          <div class="lifecycle-item">
+            <div class="lifecycle-icon deleted"></div>
+            <div class="lifecycle-content">
+              <h4>Deleted</h4>
+              <p>Immediately and permanently removed—no traces</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lifecycle-notes">
+          <h4>What we don't store:</h4>
+          <ul>
+            <li>Your plaintext secrets (we never see them)</li>
+            <li>The encryption keys (they stay in the URL hash)</li>
+            <li>Access logs with IP addresses</li>
+            <li>Backups of deleted secrets</li>
+            <li>Any personally identifiable information</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Open Source -->
+      <section class="about-section">
+        <h2>Open Source</h2>
+        <p>
+          Burnvelope is completely open source. You can review every line of code, verify our
+          security claims, and even host your own instance if you prefer.
+        </p>
+        <p>
+          We believe that security software should be transparent. "Trust us" isn't good enough
+          when it comes to your sensitive data. You should be able to verify.
+        </p>
+        <div class="github-cta">
+          <a
+            href="https://github.com/shawnlehner/burnvelope"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--secondary"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </section>
+
+      <!-- Creator -->
+      <section class="about-section creator-section">
+        <h2>About the Creator</h2>
+        <div class="creator-card">
+          <div class="creator-info">
+            <h3>Shawn Lehner</h3>
+            <p>
+              I built Burnvelope because I was tired of the friction and risk involved in sharing
+              sensitive information. As a developer, I frequently need to share API keys, credentials,
+              and other secrets with team members—and I wanted a solution I could actually trust.
+            </p>
+            <p>
+              This project is a labor of love, built with security and privacy as the core principles.
+              It's free, open source, and always will be.
+            </p>
+            <a
+              href="https://www.shawnlehner.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="creator-link"
+            >
+              Visit my website →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="about-cta">
+        <h2>Ready to share securely?</h2>
+        <p>Create a secret link in seconds. No signup required.</p>
+        <a href="/" class="btn btn--primary btn--lg">
+          Create a Secret Link
+        </a>
+      </section>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .about-page {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .about-hero {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+
+  .about-hero h1 {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .about-hero .lead {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .about-section {
+    margin-bottom: var(--space-16);
+  }
+
+  .about-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .about-section p {
+    margin-bottom: var(--space-4);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .about-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Tech Flow */
+  .tech-flow {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  .flow-step {
+    display: flex;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: white;
+    background: var(--color-brand-gradient);
+    border-radius: 50%;
+  }
+
+  .step-content h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .step-content p {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-3);
+  }
+
+  .step-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .url-example {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    margin: var(--space-3) 0;
+    overflow-x: auto;
+  }
+
+  .url-example strong {
+    color: var(--color-accent-success);
+  }
+
+  /* Security Points */
+  .security-points {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .security-point {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .security-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(79, 70, 229, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .security-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-brand-primary);
+  }
+
+  .security-point h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .security-point p {
+    font-size: var(--font-size-base);
+    margin: 0;
+  }
+
+  /* Lifecycle */
+  .lifecycle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-xl);
+    margin: var(--space-6) 0;
+    overflow-x: auto;
+  }
+
+  .lifecycle-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .lifecycle-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-bottom: var(--space-2);
+  }
+
+  .lifecycle-icon.created {
+    background: rgba(59, 130, 246, 0.2);
+    border: 2px solid var(--color-accent-info);
+  }
+
+  .lifecycle-icon.waiting {
+    background: rgba(245, 158, 11, 0.2);
+    border: 2px solid var(--color-accent-warning);
+  }
+
+  .lifecycle-icon.deleted {
+    background: rgba(16, 185, 129, 0.2);
+    border: 2px solid var(--color-accent-success);
+  }
+
+  .lifecycle-content h4 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-1);
+  }
+
+  .lifecycle-content p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .lifecycle-arrow {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-muted);
+  }
+
+  .lifecycle-notes {
+    padding: var(--space-5);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-lg);
+  }
+
+  .lifecycle-notes h4 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-3);
+  }
+
+  .lifecycle-notes ul {
+    margin: 0;
+    padding-left: var(--space-5);
+  }
+
+  .lifecycle-notes li {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2);
+  }
+
+  .lifecycle-notes li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* GitHub CTA */
+  .github-cta {
+    margin-top: var(--space-6);
+  }
+
+  .github-cta .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .github-cta .btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Creator Section */
+  .creator-card {
+    padding: var(--space-6);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .creator-info h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .creator-link {
+    display: inline-block;
+    margin-top: var(--space-4);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-brand-primary);
+  }
+
+  .creator-link:hover {
+    text-decoration: underline;
+  }
+
+  /* CTA */
+  .about-cta {
+    text-align: center;
+    padding: var(--space-12);
+    background: var(--color-brand-gradient);
+    border-radius: var(--radius-2xl);
+    color: white;
+  }
+
+  .about-cta h2 {
+    color: white;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-3);
+    border: none;
+    padding: 0;
+  }
+
+  .about-cta p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-6);
+  }
+
+  .about-cta .btn--primary {
+    background: white;
+    color: var(--color-brand-primary);
+  }
+
+  .about-cta .btn--primary:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Button Styles */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .btn--primary {
+    color: white;
+    background: var(--color-brand-gradient);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn--secondary {
+    color: var(--color-text-primary);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn--secondary:hover {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-brand-primary);
+  }
+
+  .btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--font-size-lg);
+  }
+
+  @media (max-width: 768px) {
+    .about-page {
+      padding: var(--space-8) 0 var(--space-12);
+    }
+
+    .flow-step {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .step-number {
+      margin: 0 auto;
+    }
+
+    .security-point {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .security-icon {
+      margin: 0 auto;
+    }
+
+    .lifecycle {
+      flex-direction: column;
+    }
+
+    .lifecycle-arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>

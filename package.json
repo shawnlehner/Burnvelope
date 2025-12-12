@@ -1,0 +1,28 @@
+{
+  "name": "burnvelope",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Secure one-time secret sharing with end-to-end encryption",
+  "author": "Shawn Lehner",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.0.1",
+    "@astrojs/react": "^4.1.3",
+    "astro": "^5.1.1",
+    "nanoid": "^5.0.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "typescript": "^5.7.2",
+    "wrangler": "^3.99.0"
+  }
+}

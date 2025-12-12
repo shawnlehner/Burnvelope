@@ -1,0 +1,442 @@
+---
+import Layout from '../components/Layout.astro';
+import CreateForm from '../components/CreateForm';
+import HowItWorks from '../components/HowItWorks.astro';
+import SecurityFeatures from '../components/SecurityFeatures.astro';
+import FAQ from '../components/FAQ.astro';
+---
+
+<Layout
+  title="Burnvelope - Secure One-Time Secret Sharing"
+  description="Share passwords, API keys, and sensitive information securely. End-to-end encrypted, one-time view, then gone forever. Free and open source."
+>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="hero-title">
+            Share Secrets That
+            <span class="gradient-text">Burn After Reading</span>
+          </h1>
+          <p class="hero-subtitle">
+            Securely share passwords, API keys, and sensitive information with end-to-end encryption.
+            View once, then it's gone forever.
+          </p>
+        </div>
+
+        <div class="hero-form">
+          <div class="card card--elevated">
+            <CreateForm client:load />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <HowItWorks />
+
+  <!-- Security Features -->
+  <SecurityFeatures />
+
+  <!-- Use Cases Section -->
+  <section class="use-cases">
+    <div class="container container--narrow">
+      <div class="section-header">
+        <h2>Perfect For</h2>
+        <p>Secure sharing for every situation</p>
+      </div>
+
+      <div class="use-cases-grid">
+        <div class="use-case">
+          <span class="use-case-icon">🔐</span>
+          <h3>Passwords</h3>
+          <p>Share login credentials with team members or clients without leaving traces in chat or email.</p>
+        </div>
+        <div class="use-case">
+          <span class="use-case-icon">🔑</span>
+          <h3>API Keys</h3>
+          <p>Onboard developers securely by sharing API keys, tokens, and secrets that self-destruct.</p>
+        </div>
+        <div class="use-case">
+          <span class="use-case-icon">💳</span>
+          <h3>Payment Info</h3>
+          <p>Share credit card numbers or bank details securely when needed for one-time transactions.</p>
+        </div>
+        <div class="use-case">
+          <span class="use-case-icon">📝</span>
+          <h3>Private Notes</h3>
+          <p>Send confidential messages, codes, or sensitive information that shouldn't persist.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQ />
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container container--narrow">
+      <div class="cta-card">
+        <h2>Ready to Share Securely?</h2>
+        <p>Start sharing secrets that burn after reading. No signup required.</p>
+        <a href="#" class="btn btn--primary btn--lg" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+          Create a Secret Link
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-10);
+  }
+
+  .hero-text {
+    text-align: center;
+    max-width: 720px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+  }
+
+  .gradient-text {
+    background: var(--color-brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .hero-form {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  /* Use Cases Section */
+  .use-cases {
+    padding: var(--space-20) 0;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .section-header h2 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .use-case {
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-normal);
+  }
+
+  .use-case:hover {
+    border-color: var(--color-brand-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .use-case-icon {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .use-case h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .use-case p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-12) 0 var(--space-20);
+  }
+
+  .cta-card {
+    text-align: center;
+    padding: var(--space-12);
+    background: var(--color-brand-gradient);
+    border-radius: var(--radius-2xl);
+    color: white;
+  }
+
+  .cta-card h2 {
+    color: white;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .cta-card p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-6);
+  }
+
+  .cta-card .btn--primary {
+    background: white;
+    color: var(--color-brand-primary);
+  }
+
+  .cta-card .btn--primary:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+  }
+
+  /* Create Form Styles */
+  :global(.create-form) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  :global(.create-form .form-row) {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-end;
+  }
+
+  :global(.create-form .expiration-group) {
+    flex-shrink: 0;
+    min-width: 140px;
+  }
+
+  :global(.create-form .submit-btn) {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: white;
+    background: var(--color-brand-gradient);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+  }
+
+  :global(.create-form .submit-btn:hover:not(:disabled)) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+  }
+
+  :global(.create-form .submit-btn:disabled) {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  :global(.create-form .submit-btn svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  :global(.create-form .spinner) {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  :global(.create-form .error-message) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-accent-error);
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: var(--radius-md);
+  }
+
+  :global(.create-form .error-message svg) {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  :global(.create-form .security-note) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  :global(.create-form .security-note svg) {
+    width: 16px;
+    height: 16px;
+    color: var(--color-accent-success);
+    flex-shrink: 0;
+  }
+
+  /* Success State */
+  :global(.create-form-success) {
+    text-align: center;
+    padding: var(--space-4) 0;
+  }
+
+  :global(.create-form-success .success-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin-bottom: var(--space-4);
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 50%;
+  }
+
+  :global(.create-form-success .success-icon svg) {
+    width: 32px;
+    height: 32px;
+    color: var(--color-accent-success);
+  }
+
+  :global(.create-form-success h3) {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-2);
+  }
+
+  :global(.create-form-success .success-message) {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-6);
+  }
+
+  :global(.create-form-success .url-container) {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+  }
+
+  :global(.create-form-success .url-input) {
+    flex: 1;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  :global(.create-form-success .copy-btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: white;
+    background: var(--color-brand-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  :global(.create-form-success .copy-btn:hover) {
+    background: var(--color-brand-primary-hover);
+  }
+
+  :global(.create-form-success .copy-btn.copied) {
+    background: var(--color-accent-success);
+  }
+
+  :global(.create-form-success .copy-btn svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  :global(.create-form-success .create-another-btn) {
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  :global(.create-form-success .create-another-btn:hover) {
+    color: var(--color-brand-primary);
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: var(--space-8) 0 var(--space-12);
+    }
+
+    :global(.create-form .form-row) {
+      flex-direction: column;
+    }
+
+    :global(.create-form .expiration-group) {
+      width: 100%;
+    }
+
+    :global(.create-form-success .url-container) {
+      flex-direction: column;
+    }
+  }
+</style>

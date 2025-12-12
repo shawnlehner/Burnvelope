@@ -1,0 +1,154 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Enter Your Secret',
+    description: 'Type or paste any sensitive information—passwords, API keys, private notes. Your secret is encrypted right in your browser.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+  },
+  {
+    number: '02',
+    title: 'Share the Link',
+    description: 'Get a unique, secure link to share via email, chat, or any channel. The encryption key is embedded in the URL.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+  },
+  {
+    number: '03',
+    title: 'View Once, Gone Forever',
+    description: 'Your recipient views the secret one time. After that, it\'s permanently deleted from our servers. No traces left behind.',
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>`,
+  },
+];
+---
+
+<section class="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>Share secrets securely in three simple steps</p>
+    </div>
+
+    <div class="steps-grid">
+      {steps.map((step, index) => (
+        <div class="step-card" style={`--delay: ${index * 0.1}s`}>
+          <div class="step-icon" set:html={step.icon} />
+          <span class="step-number">{step.number}</span>
+          <h3 class="step-title">{step.title}</h3>
+          <p class="step-description">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-it-works {
+    padding: var(--space-20) 0;
+    background: var(--color-bg-secondary);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+
+  .section-header h2 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .step-card {
+    position: relative;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    text-align: center;
+    transition: all var(--transition-normal);
+    animation: fadeInUp 0.5s ease-out calc(var(--delay, 0s)) both;
+  }
+
+  .step-card:hover {
+    border-color: var(--color-brand-primary);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    transform: translateY(-4px);
+  }
+
+  .step-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-4);
+    background: var(--color-brand-gradient);
+    border-radius: var(--radius-xl);
+  }
+
+  .step-icon :global(svg) {
+    width: 32px;
+    height: 32px;
+    color: white;
+  }
+
+  .step-number {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-muted);
+  }
+
+  .step-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .step-description {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .how-it-works {
+      padding: var(--space-12) 0;
+    }
+
+    .step-card {
+      padding: var(--space-6);
+    }
+  }
+</style>

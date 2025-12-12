@@ -1,0 +1,182 @@
+---
+const faqs = [
+  {
+    question: 'Is Burnvelope really secure?',
+    answer: 'Yes. Burnvelope uses AES-256-GCM encryption, the same standard used by governments and banks. Your secret is encrypted in your browser before being sent to our servers. The encryption key is embedded in the URL hash, which is never sent to our servers. Even if our database was compromised, attackers would only see encrypted data they cannot decrypt.',
+  },
+  {
+    question: 'Can you read my secrets?',
+    answer: 'No. We designed Burnvelope with a zero-knowledge architecture. Your secret is encrypted with a key that never touches our servers—it stays in the URL. We only store double-encrypted data that is useless without the key in your link. We literally cannot read your secrets.',
+  },
+  {
+    question: 'What happens after someone views my secret?',
+    answer: 'The moment your recipient views the secret, it is immediately and permanently deleted from our servers. There are no backups, no logs, and no way to recover it. The link becomes invalid and will show a "not found" message if accessed again.',
+  },
+  {
+    question: 'What if no one views my secret?',
+    answer: 'Unviewed secrets automatically expire based on your chosen time limit (1 hour to 7 days). When a secret expires, it is permanently deleted from our servers. This ensures no sensitive data lingers indefinitely.',
+  },
+  {
+    question: 'Why is this better than sending passwords by email?',
+    answer: 'Emails sit in inboxes forever, get forwarded, and are often stored on multiple servers. With Burnvelope, your secret exists only until it\'s viewed once—then it\'s gone. Even if someone later accesses your email, the link will be useless. It\'s the digital equivalent of a self-destructing message.',
+  },
+  {
+    question: 'Is Burnvelope free to use?',
+    answer: 'Yes, Burnvelope is completely free and open source. There are no premium tiers, no limits, and no accounts required. We believe secure secret sharing should be accessible to everyone.',
+  },
+  {
+    question: 'What should I use Burnvelope for?',
+    answer: 'Burnvelope is perfect for sharing passwords, API keys, private keys, credit card numbers, confidential notes, or any sensitive text you need to share securely. It\'s great for onboarding new team members, sharing credentials with clients, or sending sensitive information to friends and family.',
+  },
+];
+
+// Generate JSON-LD schema for FAQ
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<section class="faq-section">
+  <div class="container container--narrow">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know about sharing secrets securely</p>
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((faq, index) => (
+        <details class="faq-item" name="faq">
+          <summary class="faq-question">
+            <span>{faq.question}</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Schema Markup -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<style>
+  .faq-section {
+    padding: var(--space-20) 0;
+    background: var(--color-bg-secondary);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .section-header h2 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq-item {
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+  }
+
+  .faq-item:hover {
+    border-color: var(--color-brand-primary);
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-brand-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::marker {
+    display: none;
+  }
+
+  .faq-question span {
+    flex: 1;
+    text-align: left;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-tertiary);
+    transition: transform var(--transition-normal);
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-6) var(--space-5);
+  }
+
+  .faq-answer p {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: var(--space-12) 0;
+    }
+
+    .faq-question {
+      padding: var(--space-4);
+      font-size: var(--font-size-sm);
+    }
+
+    .faq-answer {
+      padding: 0 var(--space-4) var(--space-4);
+    }
+  }
+</style>

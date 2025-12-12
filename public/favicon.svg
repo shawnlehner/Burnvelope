@@ -1,0 +1,24 @@
+<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="favicon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5" />
+      <stop offset="100%" style="stop-color:#06b6d4" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M16 2L4 8v8c0 7.18 5.12 13.88 12 16 6.88-2.12 12-8.82 12-16V8L16 2z"
+    fill="url(#favicon-gradient)"
+  />
+  <path
+    d="M16 6l8 4v6c0 4.97-3.55 9.62-8 11.1-4.45-1.48-8-6.13-8-11.1v-6l8-4z"
+    fill="white"
+  />
+  <path
+    d="M12 15l3 3 5-6"
+    stroke="url(#favicon-gradient)"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+</svg>

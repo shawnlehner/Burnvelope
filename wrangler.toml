@@ -1,0 +1,15 @@
+# Burnvelope - Cloudflare Workers Configuration
+name = "burnvelope"
+compatibility_date = "2024-12-01"
+
+# KV Namespace binding
+# To create the KV namespace:
+# wrangler kv:namespace create "SECRETS"
+# Then update the id below with the returned namespace ID
+[[kv_namespaces]]
+binding = "SECRETS"
+id = "f10567bf721e45d492ae65161ec2080f"
+
+# Environment variables (set via dashboard or wrangler secret)
+# ENCRYPTION_KEY - Server-side encryption key (32 bytes, base64 encoded)
+# Run: wrangler secret put ENCRYPTION_KEY
