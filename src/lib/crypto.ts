@@ -194,8 +194,8 @@ export function getKeyFromHash(): string | null {
  */
 export function createShareUrl(id: string, key: string): string {
   if (typeof window === 'undefined') {
-    return `/${id}#${key}`;
+    return `/s/${id}#${key}`;
   }
   const baseUrl = window.location.origin;
-  return `${baseUrl}/${id}#${key}`;
+  return `${baseUrl}/s/${id}#${key}`;
 }
