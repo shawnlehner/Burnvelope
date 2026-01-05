@@ -4,8 +4,13 @@ import ViewSecret from '../components/ViewSecret';
 
 const { id } = Astro.params;
 
-// Basic validation
-if (!id || id.length < 6 || id.length > 12) {
+// Skip file-like URLs (e.g., sitemap-index.xml, robots.txt) - let static serving handle them
+if (!id || id.includes('.')) {
+  return new Response(null, { status: 404 });
+}
+
+// Basic validation for secret IDs
+if (id.length < 6 || id.length > 12) {
   return Astro.redirect('/');
 }
 
